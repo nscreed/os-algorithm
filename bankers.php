@@ -3,6 +3,7 @@
 include __DIR__ . '/vendor/autoload.php';
 
 use NsCreed\OsAlgorithm\BankersAlgorithm\Resource;
+use NsCreed\OsAlgorithm\BankersAlgorithm\ResourceRequestAlgorithm;
 use NsCreed\OsAlgorithm\BankersAlgorithm\SafetyAlgorithm;
 use NsCreed\OsAlgorithm\BankersAlgorithm\Process;
 
@@ -28,3 +29,24 @@ if (SafetyAlgorithm::isSafe($processes, $resource)) {
 } else {
     echo "System is not in a safe state. Deadlock may occur." . PHP_EOL;
 }
+
+// Define the resource request for T1
+$requestT1 = [1, 0, 2];
+
+// Check if the resource request for T1 can be granted
+if (ResourceRequestAlgorithm::canGrantImmediately($processes, 'T1', $requestT1, $resource)) {
+    echo "Resource request for T1 can be granted without causing a deadlock." . PHP_EOL;
+} else {
+    echo "Resource request for T1 cannot be granted. It may lead to a deadlock." . PHP_EOL;
+}
+
+//
+//// Define the resource request for T0
+//$requestT0 = [0, 2, 0];
+//
+//// Check if the resource request for T0 can be granted
+//if (ResourceRequestAlgorithm::canGrantImmediately($processes, 'T0', $requestT0, new Resource([2,3,0]))) {
+//    echo "Resource request for T0 can be granted without causing a deadlock." . PHP_EOL;
+//} else {
+//    echo "Resource request for T0 cannot be granted. It may lead to a deadlock." . PHP_EOL;
+//}

@@ -54,6 +54,11 @@ class Process
         }, $this->maxDemand, $this->allocation);
     }
 
+    public function setNeed($need) : void
+    {
+        $this->need = $need;
+    }
+
     public function isCompleted(): bool
     {
         return $this->completed;
