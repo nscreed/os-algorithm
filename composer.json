@@ -1,0 +1,17 @@
+{
+  "name": "nscreed/operating-system-algo",
+  "description": "Operating System Algorithms",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Faisal Islam",
+      "email": "faisal.islam70@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "NsCreed\\OsAlgorithm\\": "src/"
+    }
+  }
+}
