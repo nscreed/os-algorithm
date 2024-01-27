@@ -1,6 +1,6 @@
 <?php
 
-namespace NsCreed\BankersAlgorithm;
+namespace NsCreed\OsAlgorithm\BankersAlgorithm;
 
 class Process
 {
