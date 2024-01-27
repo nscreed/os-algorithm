@@ -4,6 +4,8 @@ namespace NsCreed\OsAlgorithm\BankersAlgorithm;
 
 class SafetyAlgorithm
 {
+    private static array $safeSequence = [];
+
     /**
      * Check if the system is in a safe state.
      *
@@ -23,11 +25,11 @@ class SafetyAlgorithm
             $clonedProcesses[] = clone $process;
         }
 
-        $safeSequence = [];
+        self::$safeSequence = [];
 
         // Iterate until all processes are finished or deadlock detected
         $iteration = 0;
-        while (count($safeSequence) < count($processes) && $iteration < count($processes)) {
+        while (count(self::$safeSequence) < count($processes) && $iteration < count($processes)) {
             $found = false;
 
             foreach ($clonedProcesses as $index => $process) {
@@ -35,7 +37,7 @@ class SafetyAlgorithm
                     // Process can be allocated resources
                     $work = self::addResources($work, $process->getAllocation());
                     $finish[$index] = true;
-                    $safeSequence[] = $process->getPid();
+                    self::$safeSequence[] = $process->getPid();
                     $found = true;
                 }
             }
@@ -48,7 +50,7 @@ class SafetyAlgorithm
             $iteration++;
         }
 
-        return count($safeSequence) === count($processes);
+        return count(self::$safeSequence) === count($processes);
     }
 
     /**
@@ -61,6 +63,7 @@ class SafetyAlgorithm
     private static function canBeAllocated(Process $process, array $work): bool
     {
         $need = $process->getNeed();
+        echo 'Need for ' . $process->getPid() . ': '; self::printResource($need);
         for ($i = 0; $i < count($need); $i++) {
             if ($need[$i] > $work[$i]) {
                 return false;
@@ -82,5 +85,18 @@ class SafetyAlgorithm
             $work[$i] += $allocation[$i];
         }
         return $work;
+    }
+
+    public static function printSafeSequence() : void
+    {
+        echo 'Safe Sequence: ';
+        self::printResource(self::$safeSequence);
+    }
+
+    public static function printResource(array $resources) : void
+    {
+        echo '<';
+        echo implode(',', $resources);
+        echo '>' . PHP_EOL;
     }
 }

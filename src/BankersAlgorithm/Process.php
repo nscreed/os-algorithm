@@ -4,22 +4,29 @@ namespace NsCreed\OsAlgorithm\BankersAlgorithm;
 
 class Process
 {
-    private int $pid;
+    private string $pid;
     private array $allocation;
     private array $maxDemand;
     private array $need;
     private bool $completed;
 
-    public function __construct(int $pid, array $allocation, array $maxDemand)
+    public function __construct(string $pid, array $allocation, array $maxDemand)
     {
         $this->pid = $pid;
         $this->allocation = $allocation;
         $this->maxDemand = $maxDemand;
-        $this->need = $maxDemand;
+        $this->makeNeed();
         $this->completed = false;
     }
 
-    public function getPid(): int
+    private function makeNeed() : void
+    {
+        foreach ($this->maxDemand as $index => $maxDemand) {
+            $this->need[$index] = $maxDemand - $this->allocation[$index];
+        }
+    }
+
+    public function getPid(): string
     {
         return $this->pid;
     }
