@@ -28,8 +28,8 @@ class ResourceRequestAlgorithm
         $need = $process->getNeed();
         $available = $resource->getAvailable();
 
-        echo 'Current Need: ';SafetyAlgorithm::printResource($need);
-        echo 'Current Avail: ';SafetyAlgorithm::printResource($available);
+//        echo 'Current Need: ';SafetyAlgorithm::printResource($need);
+//        echo 'Current Avail: ';SafetyAlgorithm::printResource($available);
 
         for ($i = 0; $i < count($need); $i++) {
             if ($request[$i] > $need[$i] || $request[$i] > $available[$i]) {
@@ -37,7 +37,7 @@ class ResourceRequestAlgorithm
             }
         }
 
-        echo 'Request: '; SafetyAlgorithm::printResource($request);
+//        echo 'Request: '; SafetyAlgorithm::printResource($request);
 
         $allocation = $process->getAllocation();
         for ($i = 0; $i < count($need); $i++) {
@@ -46,8 +46,8 @@ class ResourceRequestAlgorithm
             $need[$i] = $need[$i] - $request[$i];
         }
 
-        echo 'After Need: '; SafetyAlgorithm::printResource($need);
-        echo 'After Avail: '; SafetyAlgorithm::printResource($available);
+//        echo 'After Need: '; SafetyAlgorithm::printResource($need);
+//        echo 'After Avail: '; SafetyAlgorithm::printResource($available);
 
         $process->setAllocation($allocation);
         $process->setNeed($need);
